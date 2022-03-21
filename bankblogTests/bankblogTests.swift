@@ -20,6 +20,34 @@ class bankblogTests: XCTestCase {
   override func tearDownWithError() throws {
       // Put teardown code here. This method is called after the invocation of each test method in the class.
   }
+  func testPostCommentsParsing() {
+    let data = """
+    [{
+      "postId": 1,
+      "id": 1,
+      "name": "id labore ex et quam laborum",
+      "email": "Eliseo@gardner.biz",
+      "body": "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium"
+    }]
+    """.replacingOccurrences(of: "\n", with: "").data(using: .utf8)!
+    let decoder = JSONDecoder()
+    let commentsList = try? decoder.decode(CommentList.self, from: data)
+    XCTAssertNotNil(commentsList, "Comments should not be nil")
+  }
+  
+  func testPostDataParsing() {
+    let data = """
+    [{
+      "userId": 1,
+      "id": 1,
+      "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+      "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+    }]
+    """.replacingOccurrences(of: "\n", with: "").data(using: .utf8)! 
+    let decoder = JSONDecoder()
+    let postList = try? decoder.decode(PostList.self, from: data)
+    XCTAssertNotNil(postList, "Post comments should not be nil")
+  }
 
   func testAddPost() {
     let post = Post.create() as? Post

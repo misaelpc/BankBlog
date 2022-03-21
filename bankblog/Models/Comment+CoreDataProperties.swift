@@ -20,6 +20,7 @@ extension Comment {
     @NSManaged public var id: Int64
     @NSManaged public var email: String?
     @NSManaged public var body: String?
+    @NSManaged public var postId: Int64
     @NSManaged public var post: Post?
 
 }
