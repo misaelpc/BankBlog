@@ -43,7 +43,7 @@ class bankblogTests: XCTestCase {
       "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
       "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
     }]
-    """.replacingOccurrences(of: "\n", with: "").data(using: .utf8)! 
+    """.replacingOccurrences(of: "\n", with: "").data(using: .utf8)!
     let decoder = JSONDecoder()
     let postList = try? decoder.decode(PostList.self, from: data)
     XCTAssertNotNil(postList, "Post comments should not be nil")
@@ -75,6 +75,7 @@ class bankblogTests: XCTestCase {
   
   override func tearDown() {
     super.tearDown()
-    //_ = Posts.deleteAll()
+    _ = Post.deleteAll()
+    _ = Comment.deleteAll()
   }
 }
