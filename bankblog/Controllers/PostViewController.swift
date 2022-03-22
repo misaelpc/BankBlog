@@ -25,9 +25,10 @@ class PostViewController: UIViewController {
     resulsController = Post.resultsController()
     resulsController?.delegate = self
     Post.fetch {
-      
+      Comment.fetch {
+      } onFailure: {
+      }
     } onFailure: {
-      
     }
   }
 
@@ -43,6 +44,12 @@ class PostViewController: UIViewController {
       self.refreshControl.endRefreshing()
     } onFailure: {
       
+    }
+  }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if let memberController = segue.destination as? CommentViewController {
+      memberController.post = sender as? Post
     }
   }
 }

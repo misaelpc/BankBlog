@@ -35,7 +35,7 @@ public class Comment: NSManagedObject, Decodable {
   static func fetch(onSuccess: @escaping () -> Void,
                     onFailure: @escaping () -> Void) {
     let action = BlogAction()
-    action.fetchPosts()
+    action.fetchComments()
     request.performAsync(onAction: action, onSuccess: { (responseBody) in
       guard let jsonBody = responseBody as? Data
         else {

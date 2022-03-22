@@ -27,6 +27,13 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
     cell?.bindWithPost(post: post)
     return cell!
   }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    guard let post = self.resulsController?.object(at: indexPath) as? Post else {
+        fatalError("Attempt to configure cell without a managed object")
+    }
+    self.performSegue(withIdentifier: "showDetail", sender: post)
+  }
 }
 
 extension PostViewController: NSFetchedResultsControllerDelegate {

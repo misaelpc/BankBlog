@@ -63,4 +63,20 @@ extension NSManagedObject {
       fatalError("Failed to fetch entities: \(error)")
     }
   }
+  
+  static func resultsController(post: Post) -> NSFetchedResultsController<NSFetchRequestResult> {
+    let localDataManager  = LocalDataManager.sharedInstance
+    let context = localDataManager.persistentContainer.viewContext
+    let request = NSFetchRequest<NSFetchRequestResult>()
+    request.entity = NSEntityDescription.entity(forEntityName: entityName(), in: context)
+    request.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+    request.predicate = NSPredicate(format: "postId == %d", post.id)
+    let controller = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+    do {
+      try controller.performFetch()
+      return controller
+    } catch {
+      fatalError("Failed to fetch entities: \(error)")
+    }
+  }
 }
